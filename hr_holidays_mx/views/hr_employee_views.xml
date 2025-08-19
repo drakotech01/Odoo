@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_employee_form_inherit_alloc_button" model="ir.ui.view">
+        <field name="name">hr.employee.form.alloc.button</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <header>
+                <button name="button_actualizar_dias" type="object" string="Actualizar días de vacaciones" class="btn-primary"/>
+            </header>
+            <xpath expr="//header" position="inside">
+                <button name="button_generate_allocations"
+                        type="object"
+                        string="Generar Asignaciones"
+                        class="btn-primary"
+                        icon="fa-calendar-check-o"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Cierre de check-ins a las 23:59 -->
+        <record id="ir_cron_close_checkins" model="ir.cron">
+            <field name="name">Cierre automático de check-ins</field>
+            <field name="model_id" ref="model_hr_attendance"/>
+            <field name="state">code</field>
+            <field name="code">model.close_open_checkins()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <!-- Valor estático que será actualizado por el hook -->
+            <field name="nextcall">2025-08-18 23:59:00</field>
+        </record>
+
+        <!-- Cierre de sesiones inactivas cada hora -->
+        <record id="ir_cron_close_sessions" model="ir.cron">
+            <field name="name">Cierre de sesiones inactivas</field>
+            <field name="model_id" ref="model_res_users"/>
+            <field name="state">code</field>
+            <field name="code">model.close_inactive_sessions()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+    </data>
+</odoo>

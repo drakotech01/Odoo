@@ -1,0 +1,10 @@
+<odoo>
+    <template id="WebClient_inherit" inherit_id="web.webclient_bootstrap" name="Add Timer to Header">
+        <xpath
+            expr="//header[contains(@class, 'o_main_navbar')]//div[contains(@class, 'o_main_navbar_brand')]"
+            position="after">
+            <div id="attendance_timer_container" />
+        </xpath>
+    </template>
+</odoo>
+  

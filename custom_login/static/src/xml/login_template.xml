@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-inherit="web.login" t-name="custom_login.login">
+        <xpath expr="//h2[contains(.,'Sign in')]" position="replace">
+            <h2>Bienvenido a su Portal</h2>
+        </xpath>
+
+        <xpath expr="//form" position="before">
+            <p class="text-center text-muted mt-3">Por favor, inicie sesión para continuar.</p>
+        </xpath>
+
+        <xpath expr="//img[contains(@alt,'Logo')]" position="replace">
+            <img src="/custom_login/static/src/img/your_logo.png" alt="Your Logo" style="max-width: 200px;"/>
+        </xpath>
+    </t>
+
+</templates>

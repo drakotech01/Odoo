@@ -1,0 +1,36 @@
+.custom_checkin_systray {
+    background-color: #007BFF !important;
+    color: white !important;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-right: 10px;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.attendance-status {
+    transition: all 0.3s ease;
+}
+
+.btn-pause {
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.btn-resume {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.break-active {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
+}

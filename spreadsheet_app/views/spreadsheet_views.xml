@@ -1,0 +1,42 @@
+<odoo>
+    <record id="view_spreadsheet_document_tree" model="ir.ui.view">
+        <field name="name">spreadsheet.document.list</field>
+        <field name="model">spreadsheet.document</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="chart_type"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_spreadsheet_document_form" model="ir.ui.view">
+        <field name="name">spreadsheet.document.form</field>
+        <field name="model">spreadsheet.document</field>
+        <field name="arch" type="xml">
+            <form string="Hoja de Cálculo">
+                <header>
+                    <button name="action_export_json" type="object" class="oe_highlight" string="Exportar JSON"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="chart_type"/>
+                        <field name="x_axis"/>
+                        <field name="y_axis"/>
+                        <field name="data_json" widget="text" style="height:300px; font-family:monospace; background:#1e1e2f; color:#dcdcdc;"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_spreadsheet_document" model="ir.actions.act_window">
+        <field name="name">Hojas de cálculo</field>
+        <field name="res_model">spreadsheet.document</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_spreadsheet_dashboard_root" name="Spreadsheet" sequence="10"/>
+    <menuitem id="menu_spreadsheet_dashboard_document" name="Documentos" parent="menu_spreadsheet_dashboard_root" action="action_spreadsheet_document"/>
+</odoo>

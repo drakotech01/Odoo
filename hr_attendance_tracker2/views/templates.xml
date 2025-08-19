@@ -1,0 +1,7 @@
+<odoo>
+    <template id="view_hr_attendance_advanced_systray" inherit_id="web.layout" name="Systray Attendance">
+        <xpath expr="//div[@id='oe_main_menu_navbar']" position="inside">
+            <t t-call="hr_attendance_tracker.SystrayAttendancePause"/>
+        </xpath>
+    </template>
+</odoo>

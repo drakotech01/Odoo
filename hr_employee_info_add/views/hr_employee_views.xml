@@ -1,0 +1,31 @@
+<odoo>
+  <data>
+    <record id="view_hr_employee_form_mx" model="ir.ui.view">
+      <field name="name">hr.employee.form.mx</field>
+      <field name="model">hr.employee</field>
+      <field name="inherit_id" ref="hr.view_employee_form"/>
+      <field name="arch" type="xml">
+
+        <!-- Hacer campo name solo lectura -->
+        <xpath expr="//field[@name='name']" position="attributes">
+          <!-- attribute name="readonly">1</attribute-->
+        </xpath>
+
+        <!-- Insertar los campos debajo de job_title, con estilos estándar -->
+       <xpath expr="//field[@name='job_title']" position="after">
+            <group string="Información Personal MX" col="2" class="vacaciones-mx-group">
+                <field name="name_mx" class="oe_inline" required="1"/>
+                <field name="ap_pat_mx" class="oe_inline" required="1"/>
+                <field name="ap_mat_mx" class="oe_inline"/>
+                <field name="nombre_completo_mx" class="oe_inline" readonly="1"/>
+            </group>
+            <group string="Vacaciones según LFT" col="2" class="vacaciones-mx-group">
+                <field name="fecha_ingreso" class="oe_inline" readonly="1"/>
+                <field name="antiguedad_anos" class="oe_inline" readonly="1"/>
+                <field name="dias_vacaciones_disponibles" class="oe_inline" readonly="1"/>
+            </group>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

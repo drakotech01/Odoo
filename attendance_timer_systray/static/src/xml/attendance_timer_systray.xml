@@ -1,0 +1,12 @@
+<templates id="template" xml:space="preserve">
+        <t t-name="attendance_timer_systray.SystrayItem" owl="1">
+            <div class="o_systray_item">
+                <span t-if="state.checkedIn" class="badge badge-primary">
+                    ⏱️ <t t-esc="state.elapsed"/>
+                </span>
+                <span t-else="">
+                    🚫 No Check In
+                </span>
+            </div>
+        </t>
+    </templates>

@@ -1,0 +1,43 @@
+<odoo>
+    <record id="view_attendance_report_wizard_form" model="ir.ui.view">
+    <field name="name">attendance.report.wizard.form</field>
+    <field name="model">attendance.report.wizard</field>
+    <field name="arch" type="xml">
+      <form string="Parámetros del Reporte Avanzado">
+        <group>
+          <field name="date_from"/>
+          <field name="date_to"/>
+          <field name="department_id"/>
+          <field name="employee_id"/>
+          <field name="company_id"/>
+          <field name="status"/>
+          <field name="is_late"/>
+        </group>
+        <group string="Filtro por Hora">
+          <field name="hour_min"/>
+          <field name="hour_max"/>
+        </group>
+        <group string="Tipo de Día">
+          <field name="day_type"/>
+        </group>
+        <footer>
+          <button name="generate_report" type="object" string="Generar Reporte" class="btn-primary"/>
+          <button string="Cancelar" class="btn-secondary" special="cancel"/>
+        </footer>
+      </form>
+    </field>
+  </record>
+
+  <record id="action_attendance_report_wizard" model="ir.actions.act_window">
+    <field name="name">Reporte de Asistencias</field>
+    <field name="res_model">attendance.report.wizard</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+  </record>
+
+  <!-- Agregar a menú -->
+  <menuitem id="menu_attendance_report_wizard"
+            name="Reporte de Asistencias"
+            parent="hr_attendance.menu_hr_attendance_root"
+            action="action_attendance_report_wizard"/>
+</odoo>

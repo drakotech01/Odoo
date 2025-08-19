@@ -1,0 +1,24 @@
+<odoo>
+    <record id="view_hr_leave_form_custom" model="ir.ui.view">
+        <field name="name">hr.leave.form.custom</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <field name="tipo_permiso" />
+                <field name="motivo" />
+                <field name="aprobado_por" groups="hr.group_hr_manager" />
+            </xpath>
+            <xpath expr="//group[@name='col_left']" position="inside">
+                <group string="Locaciones Personalizadas" colspan="2">
+                    <field name="birthday_location_id" options="{'no_create': True}" />
+                    <field name="vacation_location_id" options="{'no_create': True}" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="model_hr_leave" model="ir.model">
+        <field name="name">Leave</field>
+        <field name="model">hr.leave</field>
+    </record>
+</odoo>

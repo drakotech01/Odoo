@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="hr_attendance_tracker.SystrayButtons" owl="1">
+        <div class="o_systray_item dropdown">
+            <button 
+                t-if="!state.is_paused" 
+                class="btn btn-link dropdown-toggle o_systray_item_btn" 
+                t-on-click="onClickPause"
+                t-att-disabled="state.is_loading"
+                title="Pausar Sistema">
+                
+                <i t-if="state.is_loading" class="fa fa-spinner fa-spin"/>
+                <i t-if="!state.is_loading" class="fa fa-pause text-warning"/>
+                
+                <span class="d-none d-md-inline ms-1">
+                    <t t-if="state.is_loading">Pausando...</t>
+                    <t t-if="!state.is_loading">Pausar</t>
+                </span>
+            </button>
+            
+            <button 
+                t-if="state.is_paused" 
+                class="btn btn-link dropdown-toggle o_systray_item_btn" 
+                t-on-click="onClickResume"
+                t-att-disabled="state.is_loading"
+                title="Reanudar Sistema">
+                
+                <i t-if="state.is_loading" class="fa fa-spinner fa-spin"/>
+                <i t-if="!state.is_loading" class="fa fa-play text-success"/>
+                
+                <span class="d-none d-md-inline ms-1">
+                    <t t-if="state.is_loading">Reanudando...</t>
+                    <t t-if="!state.is_loading">Reanudar</t>
+                </span>
+            </button>
+        </div>
+    </t>
+</templates>

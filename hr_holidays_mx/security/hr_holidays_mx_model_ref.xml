@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="model_hr_leave" model="ir.model">
+        <field name="name">Leave</field>
+        <field name="model">hr.leave</field>
+    </record>
+
+    <record id="model_hr_leave_allocation" model="ir.model">
+        <field name="name">Leave Allocation</field>
+        <field name="model">hr.leave.allocation</field>
+    </record>
+</odoo>

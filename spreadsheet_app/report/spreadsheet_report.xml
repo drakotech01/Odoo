@@ -1,0 +1,11 @@
+<odoo>
+    <report 
+        id="action_report_spreadsheet_export"
+        string="Exportar JSON"
+        model="spreadsheet.document"
+        report_type="qweb-pdf"
+        name="spreadsheet_dashboard.report_spreadsheet_export"
+        file="spreadsheet_dashboard.report_spreadsheet_export"
+        print_report_name="(object.name or 'Documento') + '_exportado'"
+    />
+</odoo>

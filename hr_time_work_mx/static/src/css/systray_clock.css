@@ -1,0 +1,9 @@
+.o_systray_clock {
+    padding: 0 10px;
+    font-weight: bold;
+    color: #2c3e50;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    cursor: default;
+}

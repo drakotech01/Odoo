@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_hr_applicant_form_inherit_mx" model="ir.ui.view">
+        <field name="name">hr.applicant.form.mx</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form" />
+        <field name="arch" type="xml">
+
+            <!-- Reemplazar el campo candidate_id con full_name_mx -->
+            <!--<xpath
+            expr="//div[@class='oe_title pe-0']/h1/field[@name='candidate_id']"
+                position="replace">
+                <field name="full_name_mx" readonly="1" />
+            </xpath>-->
+
+            <!-- Hacer el statusbar de etapas solo lectura -->
+            <xpath expr="//field[@name='stage_id']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+
+            <!-- Agregar botones personalizados en el header -->
+            <xpath expr="//field[@name='kanban_state']" position="after">
+                <div style="text-align: center; margin-top: 10px;">
+                    <button name="set_kanban_new" type="object"
+                        class="btn btn-secondary oe_stat_button" string="En Progreso"
+                        invisible="status_applicant == '1'" />
+                    <button name="set_kanban_blocked" type="object"
+                        class="btn btn-warning oe_stat_button" string="Regresar"
+                        invisible="status_applicant == '1'" />
+                    <button name="set_kanban_done" type="object"
+                        class="btn btn-success oe_stat_button" string="Avanzar"
+                        invisible="status_applicant == '1'" />
+                </div>
+            </xpath>
+            <notebook>
+                <page string="Informacion Personal" name="Info Personal">
+                    <xpath expr="//field[@name='candidate_id']" position="after">
+                        <group string="Datos Personales MX" style="font-size:14px;">
+                            <field name="name_mx" />
+                            <field name="ap_pat_mx" />
+                            <field name="ap_mat_mx" />
+                            <field name="full_name_mx" readonly="1" />
+                            <field name="candidate_id" readonly="1" />
+                        </group>
+                        <group string="Dirección" style="font-size:14px;">
+                            <field name="st_name_mx" />
+                            <field name="st_num_mx" />
+                            <field name="st_num_int_mx" />
+
+                        </group>
+                    </xpath>
+                </page>
+            </notebook>
+            <xpath expr="//field[@name='linkedin_profile']" position="after">
+                <field name="kanban_state" readonly="1" />
+                <field name="stage_id" readonly="1" />
+                <field name="application_status" readonly="1" />
+                <field name="partner_name" readonly="1" />
+                <field name="status_applicant" readonly="0" />
+            </xpath>
+            <xpath expr="//button[@name='create_employee_from_applicant']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <header position="inside">
+                <button name="action_create_employee_custom"
+                    string="Crear Empleado"
+                    type="object"
+                    class="btn-primary"
+                    data-hotkey="q"
+                    groups="hr.group_hr_user"
+                    invisible="employee_id or not active or not date_closed" />
+            </header>
+
+        </field>
+    </record>
+</odoo>

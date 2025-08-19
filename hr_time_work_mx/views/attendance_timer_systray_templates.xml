@@ -1,0 +1,9 @@
+<odoo>
+    <template id="AttendanceTimerSystray" name="Attendance Timer Systray">
+        <div class="o_systray_my_timer"
+            style="padding: 0 10px; color: white; font-weight: bold; font-family: monospace;">
+            <t t-esc="state.time" />
+        </div>
+    </template>
+</odoo>
+  

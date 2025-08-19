@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="hr_attendance_tracker.SystrayButtons" owl="1">
+        <div class="dropdown o_systray_item">
+            <!-- Trigger button del dropdown -->
+            <button 
+                class="btn btn-link o_systray_button dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                t-att-class="state.is_paused ? 'text-danger' : 'text-success'"
+                title="Control de Sistema">
+                <i t-if="!state.is_paused" class="fa fa-play-circle"></i>
+                <i t-if="state.is_paused" class="fa fa-pause-circle"></i>
+                <span class="d-none d-lg-inline ms-1">
+                    <t t-if="state.is_paused">Pausado</t>
+                    <t t-else="">Activo</t>
+                </span>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div class="dropdown-menu dropdown-menu-end o_systray_dropdown_menu">
+                <div class="dropdown-header">
+                    <i class="fa fa-cogs me-2"></i>
+                    Control del Sistema
+                </div>
+                
+                <div class="dropdown-divider"></div>
+                
+                <!-- Estado actual -->
+                <div class="dropdown-item-text">
+                    <div class="d-flex align-items-center">
+                        <div class="me-3">
+                            <i t-if="!state.is_paused" class="fa fa-circle text-success"></i>
+                            <i t-if="state.is_paused" class="fa fa-circle text-danger"></i>
+                        </div>
+                        <div>
+                            <strong>Estado:</strong>
+                            <span t-if="!state.is_paused" class="text-success">Sistema Activo</span>
+                            <span t-if="state.is_paused" class="text-danger">Sistema Pausado</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dropdown-divider"></div>
+
+                <!-- Botones de control -->
+                <div class="px-3 py-2">
+                    <!-- Botón Pausar -->
+                    <button 
+                        t-if="!state.is_paused" 
+                        class="btn btn-warning btn-sm w-100 mb-2"
+                        t-att-disabled="state.is_loading"
+                        t-on-click="onClickPause">
+                        <i t-if="!state.is_loading" class="fa fa-pause me-2"></i>
+                        <i t-if="state.is_loading" class="fa fa-spinner fa-spin me-2"></i>
+                        <span>Pausar Sistema</span>
+                    </button>
+
+                    <!-- Botón Reanudar -->
+                    <button 
+                        t-if="state.is_paused" 
+                        class="btn btn-success btn-sm w-100 mb-2"
+                        t-att-disabled="state.is_loading"
+                        t-on-click="onClickResume">
+                        <i t-if="!state.is_loading" class="fa fa-play me-2"></i>
+                        <i t-if="state.is_loading" class="fa fa-spinner fa-spin me-2"></i>
+                        <span>Reanudar Sistema</span>
+                    </button>
+
+                    <!-- Información adicional -->
+                    <div class="text-muted small">
+                        <i class="fa fa-info-circle me-1"></i>
+                        <span t-if="!state.is_paused">
+                            El sistema está registrando la asistencia normalmente.
+                        </span>
+                        <span t-if="state.is_paused">
+                            Las funciones de asistencia están pausadas.
+                        </span>
+                    </div>
+                </div>
+
+                <div class="dropdown-divider"></div>
+
+                <!-- Opciones adicionales -->
+                <a href="#" class="dropdown-item" t-on-click="onClickStats">
+                    <i class="fa fa-chart-line me-2"></i>
+                    Ver Estadísticas
+                </a>
+                
+                <a href="#" class="dropdown-item" t-on-click="onClickSettings">
+                    <i class="fa fa-cog me-2"></i>
+                    Configuración
+                </a>
+            </div>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,12 @@
+<templates xml:space="preserve">
+    <t t-name="hr_time_work_mx.AttendanceMenuWorkTime" owl="1">
+        <div class="o_systray_worktime">
+            <t t-if="state.checkedIn">
+                ⏱ <t t-esc="state.worked"/> (<t t-esc="state.percentage"/>%)
+            </t>
+            <t t-else="">
+                ⏱ No has iniciado tu jornada
+            </t>
+        </div>
+    </t>
+</templates>

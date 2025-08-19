@@ -1,0 +1,82 @@
+<odoo>
+    <!-- Vista Árbol (Lista de asistencias) -->
+    <record id="view_attendance_tree_inherit" model="ir.ui.view">
+        <field name="name">hr.attendance.tree.inherit</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='employee_id']" position="after">
+                <field name="name_mx" class="oe_inline" readonly="1" />
+                <field name="ap_completos" class="oe_inline" readonly="1" />
+                <field name="job_title" class="oe_inline" readonly="1" />
+                <field name="department_id" class="oe_inline" readonly="1" />
+                <field name="company_id" class="oe_inline" readonly="1" />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Vista Formulario (para revisión o edición) -->
+    <record id="view_attendance_form_inherit" model="ir.ui.view">
+        <field name="name">hr.attendance.form.inherit</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='employee_id']" position="after">
+                <field name="name_mx" class="oe_inline" readonly="1" />
+                <field name="ap_completos" class="oe_inline" readonly="1" />
+                <field name="job_title" class="oe_inline" readonly="1" />
+                <field name="department_id" class="oe_inline" readonly="1" />
+                <field name="company_id" class="oe_inline" readonly="1" />
+            </xpath>
+            <!-- CONDICION PARA MOSTRAR EL WIDGET DE STATUS BAR -->
+            <xpath expr="//header/field[@name='overtime_status'][1]" position="replace">
+                <field name="overtime_status" widget="statusbar" invisible="no_validated_overtime_hours" readonly="1" options="{'clickable': '0'}"/>
+            </xpath>
+
+            <xpath expr="//header/field[@name='overtime_status'][2]" position="replace">
+                <field name="overtime_status" widget="statusbar" invisible="not no_validated_overtime_hours" statusbar_visible="approved,refused" readonly="1" options="{'clickable': '0'}"/>
+            </xpath>
+            <!-- MOSTRAR BOTONES PERSONALIZADOS PARA RECHAZAR O APROBAR -->
+            <xpath expr="//header" position="inside">
+                <button name="action_approve_overtime"
+                    type="object"
+                    string="Aprobar"
+                    class="btn-success"
+                    icon="fa-check-circle"
+                    invisible="in_mode != 'manual' or overtime_status != 'to_approve'"
+                    groups="hr_attendance.group_hr_attendance_officer" />
+                <button name="action_refuse_overtime"
+                    type="object"
+                    string="Rechazar"
+                    class="btn-danger"
+                    icon="fa-times-circle"
+                    invisible="in_mode != 'manual' or overtime_status != 'to_approve'"
+                    confirm="¿Está seguro que desea rechazar estas horas extras?"
+                    groups="hr_attendance.group_hr_attendance_officer" />
+            </xpath>
+            <!-- QUITAR BOTONES PARA APROBAR HORAS EXTRA -->
+            <xpath expr="//field[@name='validated_overtime_hours']" readonly="1" position="after">
+                <!-- <attribute name="invisible">1</attribute> -->
+                <button name="action_approve_overtime"
+                    type="object"
+                    string="Validar Horas Extras"
+                    class="btn-primary"
+                    icon="fa-check"
+                    invisible="in_mode == 'manual'" />
+            </xpath>
+            <!-- Campos de solo lectura cuando es diferente de modo Manual -->
+            <xpath expr="//field[@name='employee_id']" position="replace">
+                <field name="employee_id" readonly="1" widget="many2one_avatar_user" options="{'clickable': '0'}" />                
+            </xpath>
+            <!-- Solo Lectura cuando es diferente de manual campos de entrada y salida -->
+            <xpath expr="//field[@name='check_in']" position="attributes">
+                <attribute name="readonly">is_readonly</attribute>
+            </xpath>
+            <xpath expr="//field[@name='check_out']" position="attributes">
+                <attribute name="readonly">is_readonly</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

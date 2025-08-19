@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista tree para breaks -->
+        <record id="view_hr_attendance_break_tree" model="ir.ui.view">
+            <field name="name">hr.attendance.break.tree</field>
+            <field name="model">hr.attendance.break</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="attendance_id"/>
+                    <field name="pause_start"/>
+                    <field name="pause_end"/>
+                    <field name="pause_duration" widget="float_time"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vista formulario para breaks -->
+        <record id="view_hr_attendance_break_form" model="ir.ui.view">
+            <field name="name">hr.attendance.break.form</field>
+            <field name="model">hr.attendance.break</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="attendance_id"/>
+                                <field name="pause_start"/>
+                            </group>
+                            <group>
+                                <field name="pause_end"/>
+                                <field name="pause_duration" widget="float_time"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

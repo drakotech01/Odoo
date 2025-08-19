@@ -1,0 +1,12 @@
+.o_form_view .vacaciones-mx-group {
+    background-color: #f4f9ff;
+    padding: 10px;
+    border-left: 4px solid #1976d2;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.o_form_view .vacaciones-mx-group label {
+    font-weight: bold;
+    color: #0d47a1;
+}

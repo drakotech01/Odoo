@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!--
+        Reporte XLSX de asistencias
+        Este XML registra el reporte con ID 'report_attendance_xlsx',
+        que es referenciado en el wizard para exportar a Excel.
+    -->
+    <report
+        id="report_attendance_xlsx"
+        model="hr.attendance"
+        string="Reporte de Asistencias"
+        report_type="xlsx"
+        name="hr_extra_attendance.report_attendance_xlsx"
+        file="hr_extra_attendance.report_attendance_xlsx"
+        attachment_use="False"/>
+</odoo>

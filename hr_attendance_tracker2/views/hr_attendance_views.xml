@@ -1,0 +1,35 @@
+<odoo>
+    <record id="view_hr_attendance_form_extended" model="ir.ui.view">
+        <field name="name">hr.attendance.form.extended</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Insertar botones Pausar/Reanudar en el header -->
+            <!-- <xpath expr="//form/header" position="after">
+                <button name="action_start_pause"
+                        type="object"
+                        string="Pausar"
+                        class="btn btn-warning"
+                        attrs="{'invisible': [('is_paused', '=', True)]}"/>
+                <button name="action_end_pause"
+                        type="object"
+                        string="Reanudar"
+                        class="btn btn-success"
+                        attrs="{'invisible': [('is_paused', '=', False)]}"/>
+            </xpath> -->
+
+            <!-- Insertar bloque de pausas al final del <group> principal -->
+            <xpath expr="//sheet/group" position="inside">
+                <group string="Pausas" colspan="2">
+                    <field name="pause_ids">
+                        <tree editable="bottom">
+                            
+                        </tree>
+                    </field>
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

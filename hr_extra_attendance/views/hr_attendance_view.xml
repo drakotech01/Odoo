@@ -1,0 +1,44 @@
+<odoo>
+  <!-- Vista Árbol (Lista de asistencias) -->
+  <record id="view_attendance_tree_inherit" model="ir.ui.view">
+    <field name="name">hr.attendance.tree.inherit</field>
+    <field name="model">hr.attendance</field>
+    <field name="inherit_id" ref="hr_attendance.view_attendance_tree" />
+    <field name="arch" type="xml">
+
+
+      <xpath expr="//field[@name='check_in']" position="replace">
+        <!-- Reemplazamos el campo check_in por fecha y hora separadas -->
+        <field name="check_in_date" />
+        <field name="check_in_time" />
+      </xpath>
+    </field>
+  </record>
+
+  <!-- Vista Formulario (para revisión o edición) -->
+  <record id="view_attendance_form_inherit" model="ir.ui.view">
+    <field name="name">hr.attendance.form.inherit</field>
+    <field name="model">hr.attendance</field>
+    <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//header/field[@name='overtime_status']" position="attributes">
+        <attribute name="readonly">1</attribute>
+      </xpath>
+
+      <xpath expr="//header/field[@name='overtime_status']" position="before">
+        <button name="action_approve_overtime" type="object"
+          string="Aprobar" class="oe_highlight"
+          attrs="{'invisible': [('overtime_status', '!=', 'pending_approval')]}"
+          style="background-color: #007bff; color: white; margin-right: 5px;" />
+        <button name="action_reject_overtime" type="object"
+          string="Rechazar"
+          attrs="{'invisible': [('overtime_status', '!=', 'pending_approval')]}"
+          style="background-color: #dc3545; color: white;" />
+      </xpath>
+      <xpath expr="//form/sheet/group" position="inside">
+        <field name="check_in_date" readonly="1" />
+        <field name="check_in_time" readonly="1" />
+      </xpath>
+    </field>
+  </record>
+</odoo>

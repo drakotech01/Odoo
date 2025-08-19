@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista formulario extendida de hr.attendance usando xpath -->
+        <record id="view_attendance_form_breaks" model="ir.ui.view">
+            <field name="name">hr.attendance.form.breaks</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+            <field name="arch" type="xml">
+                <!-- Método 1: Agregar campo después de worked_hours usando xpath -->
+                <xpath expr="//field[@name='worked_hours']" position="after">
+                    <field name="total_break_time" widget="float_time" string="Tiempo Total de Pausas"/>
+                </xpath>
+                
+                <!-- Método 2: Agregar notebook al final del sheet usando xpath -->
+                <xpath expr="//sheet" position="inside">
+                    <notebook>
+                        <page string="Registros de Comida" name="break_records">
+                            <group>
+                                <group string="Lista de Pausas" colspan="2">
+                                    <field name="break_ids" nolabel="1" colspan="2">
+                                        <list editable="bottom">
+                                            <field name="pause_start" string="Inicio de Pausa"/>
+                                            <field name="pause_end" string="Fin de Pausa"/>
+                                            <field name="pause_duration" widget="float_time" readonly="1" string="Duración"/>
+                                        </list>
+                                        <form>
+                                            <group>
+                                                <field name="pause_start"/>
+                                                <field name="pause_end"/>
+                                                <field name="pause_duration" widget="float_time"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </group>
+                            </group>
+                            
+                            <!-- Resumen de pausas -->
+                            <group>
+                                <group string="Resumen" col="2">
+                                    <field name="total_break_time" widget="float_time" readonly="1" string="Total de Pausas"/>
+                                </group>
+                                <group/>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Vista tree extendida usando xpath -->
+        <record id="view_attendance_tree_breaks" model="ir.ui.view">
+            <field name="name">hr.attendance.tree.breaks</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='worked_hours']" position="after">
+                    <field name="total_break_time" widget="float_time" string="Tiempo de Pausas" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Vista alternativa: Agregar después del último group si no hay notebook -->
+        <record id="view_attendance_form_breaks_alternative" model="ir.ui.view">
+            <field name="name">hr.attendance.form.breaks.alternative</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+            <field name="arch" type="xml">
+                <!-- Buscar el último group y agregar después -->
+                <xpath expr="//group[last()]" position="after">
+                    <separator string="Registros de Pausas de Comida" colspan="2"/>
+                    <group colspan="2">
+                        <group string="Pausas del Día">
+                            <field name="break_ids" nolabel="1">
+                                <list editable="bottom">
+                                    <field name="pause_start"/>
+                                    <field name="pause_end"/>
+                                    <field name="pause_duration" widget="float_time" readonly="1"/>
+                                </list>
+                            </field>
+                        </group>
+                        <group string="Resumen">
+                            <field name="total_break_time" widget="float_time" readonly="1"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>        
+    </data>
+</odoo>

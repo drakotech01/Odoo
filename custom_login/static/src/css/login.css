@@ -1,0 +1,18 @@
+body.o_login_page {
+    background: url('/custom_login/static/src/img/background.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.o_login_form {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.o_login_form .btn-primary {
+    background-color: #007bff; /* Cambie por el color de su marca */
+    border-color: #007bff; /* Cambie por el color de su marca */
+}
