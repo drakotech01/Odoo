@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+        <template id="report_vacation_request_pdf">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <h2>Solicitud de Vacaciones</h2>
+                        <p><strong>Empleado:</strong> <t t-esc="o.employee_id.name"/></p>
+                        <p><strong>Desde:</strong> <t t-esc="o.start_date"/> <strong>Hasta:</strong> <t t-esc="o.end_date"/></p>
+                        <p><strong>Días Solicitados:</strong> <t t-esc="o.days_requested"/></p>
+                        <p><strong>Tipo:</strong> <t t-esc="o.leave_type"/></p>
+                        <p><strong>Estado:</strong> <t t-esc="o.state"/></p>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

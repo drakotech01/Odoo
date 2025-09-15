@@ -1,57 +1,60 @@
 # Importación de librerías esenciales de Odoo
+import requests
+import logging
 from odoo import models, fields, api
 from datetime import datetime, timedelta
-#from pytz import timezone
-from odoo.exceptions import UserError
+from pytz import timezone
+from geopy.geocoders import Nominatim
+from geopy.exc import GeocoderTimedOut
+
+
+_logger = logging.getLogger(__name__)
+
+OPENCAGE_API_KEY = '1b95a7dc8d9e4e74a1b6c450d1879abc' # Clave de API para OpenCage Geocoding
 
 # Extendemos el modelo existente 'hr.attendance' usando herencia.
 # Esto nos permite agregar nuevos campos y lógica sin modificar directamente el core.
 class HrAttendanceExtended(models.Model):
     _inherit = 'hr.attendance'  # Indicamos que heredamos del modelo original de asistencias.
 
+    # =========================== Bloque para ontener la ubicación del empleado ===========================
+    check_in_address = fields.Char(string="Dirección Check-In",  store=True)
+    check_out_address = fields.Char(string="Dirección Check-Out", store=True)
+    
+    def _get_address_from_opencage(self, lat, lon):
+        try:
+            url = url = f'https://api.opencagedata.com/geocode/v1/json?q={lat}+{lon}&key={OPENCAGE_API_KEY}'
+            response = requests.get(url, timeout=5)
+            if response.status_code == 200:
+                data = response.json()
+                if data['results']:
+                    return data['results'][0]['formatted']
+        except Exception as e:
+            _logger.warning(f"Error al obtener dirección: {e}")
+        return ""
+    
+    @api.model
+    def create(self, vals):
+        if vals.get('in_latitude') and vals.get('in_longitude'):
+            vals['check_in_address'] = self._get_address_from_opencage(
+                vals['in_latitude'], vals['in_longitude']
+            )
+        return super().create(vals)
+
+    def write(self, vals):
+        for rec in self:
+            if vals.get('out_latitude') and vals.get('out_longitude'):
+                vals['check_out_address'] = self._get_address_from_opencage(
+                    vals['out_latitude'], vals['out_longitude']
+                )
+        return super().write(vals)
+    
+    
+    # =========================== fin Bloque para ontener la ubicación del empleado ===========================
+
 
     # Limitar la edicion del formulario cuando el registro fue diferente de modeo Manual
-    #registro_manual = fields.Boolean(string="Registro Manual", default=False)
-
-    # ===========================
-    # BOTONES Y ESTAUS HEADER Y WIDGET
-    # ===========================
-
-    manage_ot = fields.Boolean(
-        string="Gestionar Registro Manual",
-        compute="_compute_manage_ot",  # Método que calcula si se debe mostrar el botón
-        store=False,
-    )
-
-    @api.depends('overtime_status')
-    def _compute_manage_ot(self):
-        """
-        Determina si se debe mostrar el botón de gestión de registro manual.
-        Solo se muestra si el estado del registro es 'Por Aprobar'.
-        """
-        for record in self:
-            # El botón solo se muestra si el estado es 'to_approve'
-            record.manage_ot = record.overtime_status == 'to_approve'
-    
-    def action_approve_overtime(self):
-        self.ensure_one()
-        # Se actualiza la condición para usar 'to_approve'
-        if self.overtime_status == 'to_approve':
-            self.overtime_status = 'approved'
-            # Puedes añadir un mensaje al chatter o un log si es necesario
-            self.message_post(body=("Overtime has been approved."))
-        else:
-            raise UserError(("Overtime can only be approved if its status is 'Por Aprobar'."))
-    
-    def action_reject_overtime(self):
-        self.ensure_one()
-        # Se actualiza la condición para usar 'to_approve' y el estado final a 'refused'
-        if self.overtime_status == 'to_approve':
-            self.overtime_status = 'refused'
-            # Puedes añadir un mensaje al chatter o un log si es necesario
-            self.message_post(body=("Overtime has been rejected."))
-        else:
-            raise UserError(("Overtime can only be rejected if its status is 'Por Aprobar'."))
+    registro_manual = fields.Boolean(string="Registro Manual", default=False)
 
     # ===========================
     # CAMPOS RELACIONADOS AL EMPLEADO
@@ -173,7 +176,7 @@ class HrAttendanceExtended(models.Model):
         Cambia el estado del registro a 'autorizado'.
         """
         for rec in self:
-             rec.overtime_status = 'approved'
+            rec.overtime_status = 'approved'
 
     def action_refuse(self):
         """
@@ -252,5 +255,3 @@ class HrAttendanceExtended(models.Model):
                 rec.check_out_date = False
                 rec.check_out_time = False
 
-
-    

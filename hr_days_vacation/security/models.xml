@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <record id="model_hr_vacation_days" model="ir.model">
+            <field name="name">hr.vacation.days</field>
+            <field name="model">hr.vacation.days</field>
+            <field name="state">base</field>
+        </record>
+    </data>    
+</odoo>

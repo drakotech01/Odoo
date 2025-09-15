@@ -4,76 +4,50 @@
     <t t-inherit="hr_attendance.attendance_menu" t-inherit-mode="extension">
 
         <!-- Insertamos botón Pausar/Reanudar justo antes del botón de Check out -->
-        <xpath expr="//button[contains(@t-on-click, 'signInOut')][last()]" position="before">
-            <t t-if="state.checkedIn">
-                <div class="mt-2">
+        <xpath
+            expr="//div[@class='o_att_menu_container d-flex flex-column gap-4']"
+            position="inside">
+            <t t-if="this.state.checkedIn">
+                <div
+                    class="att_container d-flex flex-column"
+                    t-att-class="this.state.checkedIn ? 'p-6 bg-100 rounded' : ''">
+
                     <button
                         t-on-click="() => this.togglePause()"
                         t-att-class="'btn w-100 mt-2 ' + (this.state.onBreak ? 'btn-success' : 'btn-warning')"
                         t-att-disabled="!state.checkedIn">
                         <span t-if="!state.onBreak">Pausar comida</span>
                         <span t-if="state.onBreak">Reanudar</span>
-                        <i t-att-class="'fa fa-' + (this.state.onBreak ? 'play' : 'pause') + ' ms-1'"/>
+                        <i
+                            t-att-class="'fa fa-' + (this.state.onBreak ? 'play' : 'pause') + ' ms-1'" />
                     </button>
-                </div>
-
-                <!-- Indicador visual cuando está en pausa -->
-                <t t-if="state.onBreak">
-                    <div class="alert alert-info text-center py-1 mb-2">
-                        <small>
-                            <i class="fa fa-clock-o me-1"/>
-                            En pausa de comida
-                        </small>
-                    </div>
-                </t>
-            </t>
-        </xpath>
-
-        <xpath expr="//div[@t-if='!this.isFirstAttendance']" position="before">
-            <t t-if="state.checkedIn">
-                <div class="mt-2">
-                    <button
-                        t-on-click="() => this.togglePause()"
-                        t-att-class="'btn w-100 mt-2 ' + (this.state.onBreak ? 'btn-success' : 'btn-warning')"
-                        t-att-disabled="!state.checkedIn">
-                        <span t-if="!state.onBreak">Pausar comida</span>
-                        <span t-if="state.onBreak">Reanudar</span>
-                        <i t-att-class="'fa fa-' + (this.state.onBreak ? 'play' : 'pause') + ' ms-1'"/>
+                    
+                    <t t-if="state.onBreak">
+                        <div class="alert alert-info text-center py-1 mb-2">
+                            <small>
+                                <i class="fa fa-clock-o me-1" /> En pausa de comida </small>
+                        </div>
+                    </t>
+                    <button t-on-click="() => this.signInOut()" class="flex-basis-100 mt-3"
+                        t-attf-class="btn btn-{{ this.state.checkedIn ? 'danger' : 'success' }} w-100 mt-2">
+                        <span t-if="!this.state.checkedIn">Check in</span>
+                        <span t-else="">Check out</span>
+                        <i t-attf-class="fa fa-sign-{{ this.state.checkedIn ? 'out' : 'in' }} ms-1" />
                     </button>
                 </div>
             </t>
         </xpath>
-
-        <!-- Cambiamos color del botón Check in/out de forma segura -->
-        <xpath expr="//div[@t-if='!this.isFirstAttendance']//div[@class='d-flex']" position="after">
-            <t t-if="state.checkedIn">
-                <div class="mt-2">
-                    <button
-                        t-on-click="() => this.togglePause()"
-                        t-att-class="'btn w-100 mt-2 ' + (this.state.onBreak ? 'btn-success' : 'btn-warning')"
-                        t-att-disabled="!state.checkedIn">
-                        <span t-if="!state.onBreak">Pausar comida</span>
-                        <span t-if="state.onBreak">Reanudar</span>
-                        <i t-att-class="'fa fa-' + (this.state.onBreak ? 'play' : 'pause') + ' ms-1'"/>
-                    </button>
-                </div>
-            </t>
-        </xpath>
-        
-        <xpath expr="//button[contains(@t-on-click, 'signInOut')]" position="replace">
-            <button t-if="this.isFirstAttendance" t-on-click="() => this.signInOut()" t-attf-class="btn btn-{{ this.state.checkedIn ? 'danger' : 'success' }}">
-                <span t-if="!this.state.checkedIn">Check in</span>
-                <span t-else="">Check out</span>
-                <i t-attf-class="fa fa-sign-{{ this.state.checkedIn ? 'out' : 'in' }} ms-1"/>
-            </button>
+        <!-- Agregamos condición dinámica Para ocultar boton predeterminado para el nuevo modelo-->
+        <xpath
+            expr="//div[@t-if='!this.isFirstAttendance']//button[@t-on-click='() => this.signInOut()']"
+            position="attributes">
+            <attribute name="t-if">!this.state.checkedIn</attribute>
         </xpath>
 
-        <xpath expr="//button[@t-if='this.isFirstAttendance']" position="replace">
-            <button t-on-click="() => this.signInOut()" t-attf-class="btn btn-{{ this.state.checkedIn ? 'danger' : 'success' }}">
-                <span t-if="!this.state.checkedIn">Check in</span>
-                <span t-else="">Check out</span>
-                <i t-attf-class="fa fa-sign-{{ this.state.checkedIn ? 'out' : 'in' }} ms-1"/>
-            </button>
+        <xpath
+            expr="//button[@t-if='this.isFirstAttendance' and @t-on-click='() => this.signInOut()']"
+            position="attributes">
+            <attribute name="t-if">this.isFirstAttendance and !this.state.checkedIn</attribute>
         </xpath>
 
         

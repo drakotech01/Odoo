@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="hr_attendance_button_sesametime_inherit" model="ir.ui.view">
+            <field name="name">hr.attendance.button.sesametime.inherit</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/> <field name="arch" type="xml">
+                <xpath expr="//button[@name='attendance_action_change_action']" position="replace">
+                    <button type="object"
+                            name="attendance_action_change_action"
+                            class="btn btn-primary oe_highlight o_sesametime_attendance_button"
+                            >
+                        <t t-if="attendance_state == 'checked_in'">
+                            <span class="o_sesametime_label_text">Salida</span>
+                            <i class="fa fa-arrow-down ms-2" role="img" aria-label="Salida" title="Salida"></i>
+                        </t>
+                        <t t-else="">
+                            <span class="o_sesametime_label_text">Entrada</span>
+                            <i class="fa fa-arrow-up ms-2" role="img" aria-label="Entrada" title="Entrada"></i>
+                        </t>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+        </data>
+</odoo>

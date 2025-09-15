@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="hr_attendance_systray_button_sesametime_inherit" model="ir.ui.view">
+            <field name="name">hr.attendance.systray.button.sesametime.inherit</field>
+            <field name="inherit_id" ref="hr_attendance.AttendanceMenu"/> <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('dropdown-menu')]//a[hasclass('o_hr_attendance_button')]" position="replace">
+                    <button type="button"
+                            t-on-click="this.employee.attendance_state === 'checked_in' ? this._onClickAttendanceOut() : this._onClickAttendanceIn()"
+                            class="dropdown-item o_sesametime_attendance_button"
+                            >
+                        <t t-if="employee.attendance_state === 'checked_in'">
+                            <span class="o_sesametime_label_text">Salida</span>
+                            <i class="fa fa-arrow-down ms-2" role="img" aria-label="Salida" title="Salida"></i>
+                        </t>
+                        <t t-else="">
+                            <span class="o_sesametime_label_text">Entrada</span>
+                            <i class="fa fa-arrow-up ms-2" role="img" aria-label="Entrada" title="Entrada"></i>
+                        </t>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

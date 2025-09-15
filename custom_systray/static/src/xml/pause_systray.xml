@@ -1,0 +1,40 @@
+<templates xml:space="preserve">
+    <t t-inherit="hr_attendance.attendance_menu" t-inherit-mode="extension">        
+        <xpath
+            expr="//div[@class='o_att_menu_container d-flex flex-column gap-4']"
+            position="inside">
+            <t t-if="this.state.checkedIn">
+                <div 
+                    class="att_container d-flex flex-column"
+                    t-att-class="this.state.checkedIn ? 'p-4 bg-100 rounded' : ''">
+                    <button
+                        t-on-click="() => this.togglePause()"
+                        t-attf-class="btn btn-warning w-100 mt-2">
+                        <span t-if="!this.state.onBreak">Pausar comida</span>
+                        <span t-else="">Reanudar</span>
+                        <i t-attf-class="fa fa-{{ this.state.onBreak ? 'play' : 'pause' }} ms-1" />
+                    </button>
+                
+                    <button t-on-click="() => this.signInOut()" class="flex-basis-100 mt-3"
+                        t-attf-class="btn btn-{{ this.state.checkedIn ? 'danger' : 'success' }} w-100 mt-2">
+                        <span t-if="!this.state.checkedIn">Check in</span>
+                        <span t-else="">Check out</span>
+                        <i t-attf-class="fa fa-sign-{{ this.state.checkedIn ? 'out' : 'in' }} ms-1" />
+                    </button>
+                </div>
+            </t>
+        </xpath>
+
+        <!-- Agregamos condición dinámica -->
+        <xpath expr="//div[@t-if='!this.isFirstAttendance']//button[@t-on-click='() => this.signInOut()']" position="attributes">
+            <attribute name="t-if">!this.state.checkedIn</attribute>
+        </xpath>
+        
+        
+    <xpath expr="//button[@t-if='this.isFirstAttendance' and @t-on-click='() => this.signInOut()']" position="attributes">
+        <attribute name="t-if">this.isFirstAttendance and !this.state.checkedIn</attribute>
+    </xpath>
+
+
+    </t>
+</templates>

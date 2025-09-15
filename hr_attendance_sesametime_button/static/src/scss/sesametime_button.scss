@@ -1,0 +1,55 @@
+/* hr_attendance_sesametime_button/static/src/scss/sesametime_button.scss */
+
+.o_sesametime_attendance_button {
+    /* --- Estilos para hacer el botón circular --- */
+    width: 150px;       /* Ancho del botón circular */
+    height: 150px;      /* Altura del botón circular (debe ser igual al ancho) */
+    border-radius: 50% !important; /* ¡Hace el botón circular! */
+    overflow: hidden;   /* Asegura que cualquier contenido extra se corte si sobresale */
+
+    /* --- Estilos base (ajustados para el círculo) --- */
+    padding: 10px;      /* Reducir el padding para que el texto quepa */
+    font-size: 1.8rem;  /* Ajustar el tamaño de fuente para el espacio */
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+
+    display: flex;
+    flex-direction: column; /* Cambiar a columna para apilar texto y el icono */
+    align-items: center;
+    justify-content: center;
+    gap: 5px; /* Espacio más pequeño entre elementos en columna */
+
+    color: white !important; /* Asegura que el texto sea blanco para el contraste */
+
+    &:hover {
+        transform: scale(1.05) translateY(-3px); /* Escalar un poco y levantar al pasar el ratón */
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+        opacity: 0.9;
+    }
+
+    .o_sesametime_label_text {
+        line-height: 1;
+        text-align: center; /* Centrar el texto dentro del círculo */
+    }
+
+    i.fa {
+        font-size: 2rem; /* Icono un poco más grande para un botón circular */
+        line-height: 1;
+    }
+
+    /* --- Colores Dinámicos (controlados por las clases añadidas por JS) --- */
+
+    /* Estilo para 'Entrada' (Check-in) state - Botón Verde */
+    &.o_sesametime_button_check_in {
+        background-color: #28a745 !important; /* Verde vibrante */
+        border-color: #28a745 !important;
+    }
+
+    /* Estilo para 'Salida' (Check-out) state - Botón Rojo */
+    &.o_sesametime_button_check_out {
+        background-color: #dc3545 !important; /* Rojo vibrante */
+        border-color: #dc3545 !important;
+    }
+}

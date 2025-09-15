@@ -5,6 +5,7 @@
     <field name="model">hr.attendance</field>
     <field name="inherit_id" ref="hr_attendance.view_attendance_tree" />
     <field name="arch" type="xml">
+
       <xpath expr="//field[@name='employee_id']" position="after">
         <field name="name_mx" class="oe_inline" readonly="1" />
         <!--field
@@ -21,11 +22,14 @@
         <!-- Reemplazamos el campo check_in por fecha y hora separadas -->
         <field name="check_in_date" />
         <field name="check_in_time" />
+         
+
       </xpath>
       <xpath expr="//field[@name='check_out']" position="replace">
         <!-- Reemplazamos el campo check_out por fecha y hora separadas -->
         <field name="check_out_date" />
         <field name="check_out_time" />
+        
       </xpath>
     </field>
   </record>
@@ -35,32 +39,7 @@
     <field name="name">hr.attendance.form.inherit</field>
     <field name="model">hr.attendance</field>
     <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form" />
-    <field name="priority" eval="20" />
-    <field name="arch" type="xml">
-      <xpath expr="//header/field[@name='overtime_status']" position="attributes">
-        <attribute name="readonly">1</attribute>
-        <attribute name="options">{'clickable': '0'}</attribute>
-      </xpath>
-
-      <!-- Modificar los valores del widget -->
-      <header>
-        <field name="overtime_status" widget="statusbar"        
-        invisible="1" readonly="1"/>
-      </header>             
-
-      <xpath expr="//header/field[@name='overtime_status']" position="before">
-        <button name="action_approve_overtime" type="object"
-          string="Aprobar" class="oe_highlight"
-          invisible="not manage_ot"
-          style="background-color: #007bff; color: white; margin-right: 5px;" />
-
-        <button name="action_reject_overtime" type="object"
-          string="Rechazar"
-          invisible="not manage_ot"
-          style="background-color: #dc3545; color: red;" />
-      </xpath>
-
-
+    <field name="arch" type="xml">     
       <xpath expr="//field[@name='employee_id']" position="after">
         <field name="name_mx" class="oe_inline" readonly="1" />
         <field name="ap_completos" class="oe_inline" readonly="1" />
@@ -78,6 +57,9 @@
           <field name="check_in_time"
             string="Hora Entrada"
             readonly="1" />
+        <field name="in_latitude"/>
+        <field name="in_longitude"/>
+        <field name="check_in_address" readonly="1"/>
         </group>
       </xpath>
       <xpath expr="//group[@name='check_out_group']" position="inside">
@@ -88,8 +70,12 @@
           <field name="check_out_time"
             string="Hora Salida"
             readonly="1" />
+          <field name="out_latitude"/>
+          <field name="out_longitude"/>
+          <field name="check_out_address" readonly="1"/>
         </group>
       </xpath>
+
     </field>
   </record>
 </odoo>
