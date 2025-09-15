@@ -1,0 +1,121 @@
+<odoo>
+    <data>
+        <!-- VISTA DE FORMULARIO PARA EL SIMULADOR DE CRÉDITO -->
+        <record id="loan_simulator_form_view" model="ir.ui.view">
+            <field name="name">loan.simulator.form</field>
+            <field name="model">loan.simulator</field>
+            <field name="arch" type="xml">
+                <form string="Simulador de Crédito">
+                    <header>
+                        <button name="generate_amortization_schedule"
+                            string="Generar Plan de Pagos"
+                            type="object"
+                            class="oe_highlight" />
+                        <field name="state" widget="statusbar"
+                            statusbar_visible="draft,generated,done" />
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="loan_amount" />
+                                <field name="interest_rate" />
+                                <field name="iva_rate" />
+                                <field name="number_of_payments" />
+                            </group>
+                            <group>
+                                <field name="start_date" />
+                                <field name="first_payment_date" />
+                                <field name="weekly_payment" readonly="1" />
+                                <field name="total_debt" readonly="1" />
+                                <field name="total_interest_paid" readonly="1" />
+                                <field name="total_iva_paid" readonly="1" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Plan de Pagos">
+                                <field name="payment_ids" widget="one2many_list">
+                                    <list string="Plan de Pagos" editable="bottom">
+                                        <field name="payment_number" />
+                                        <field name="payment_date" />
+                                        <field name="initial_total_debt"
+                                            string="Saldo Inicial Deuda" />
+                                        <field name="initial_balance" string="Saldo Inicial Capital" />
+                                        <field name="principal_amount" />
+                                        <field name="interest_amount" />
+                                        <field name="iva_amount" />
+                                        <field name="payment_amount" />
+                                        <field name="final_total_debt" string="Saldo Final Deuda" />
+                                        <field name="final_balance" string="Saldo Final Capital" />
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter>
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="activity_ids" widget="mail_activity" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </chatter>
+                </form>
+            </field>
+        </record>
+
+        <!-- VISTA DE LISTA PARA EL SIMULADOR DE CRÉDITO -->
+        <record id="loan_simulator_list_view" model="ir.ui.view">
+            <field name="name">loan.simulator.list</field>
+            <field name="model">loan.simulator</field>
+            <field name="arch" type="xml">
+                <list string="Simulaciones de Crédito">
+                    <field name="loan_amount" />
+                    <field name="interest_rate" />
+                    <field name="iva_rate" />
+                    <field name="number_of_payments" />
+                    <field name="weekly_payment" />
+                    <field name="total_interest_paid" />
+                    <field name="total_iva_paid" />
+                    <field name="total_debt" />
+                </list>
+            </field>
+        </record>
+
+        <!-- VISTA KANBAN -->
+        <record id="loan_simulator_kanban_view" model="ir.ui.view">
+            <field name="name">loan.simulator.kanban</field>
+            <field name="model">loan.simulator</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="state" class="o_kanban_small_column">
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_kanban_card">
+                                <div class="o_kanban_details">
+                                    <strong><field name="loan_amount" /> MXN</strong>
+                                    <div>
+                                        <span>Tasa: <field name="interest_rate" />%</span>
+                                    </div>
+                                    <div>
+                                        <span>Plazos: <field name="number_of_payments" /></span>
+                                    </div>
+                                    <div>
+                                        <span>Total: <field name="total_debt" /></span>
+                                    </div>
+                                </div>
+                                <!-- 🔹 Resumen de chatter -->
+                                <div class="mt-2 text-muted">
+                                    <field name="message_ids" widget="mail_thread_field" />
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- ACCIÓN DE VENTANA -->
+        <record id="loan_simulator_action" model="ir.actions.act_window">
+            <field name="name">Simulador de Crédito</field>
+            <field name="res_model">loan.simulator</field>
+            <field name="view_mode">kanban,list,form</field>
+        </record>
+       
+    </data>
+</odoo>

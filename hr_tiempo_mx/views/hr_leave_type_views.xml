@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_leave_type_form_extended" model="ir.ui.view">
+        <field name="name">hr.leave.type.form.extended</field>
+        <field name="model">hr.leave.type</field>
+        <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <!-- Añadir campos después del nombre -->
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="leave_category"/>
+                <field name="requires_birthday_validation">
+                    <attribute name="invisible">leave_category != 'birthday'</attribute>
+                </field>
+                <field name="is_legal_leave">
+                    <attribute name="invisible">leave_category not in ['paternity','maternity']</attribute>
+                </field>
+                <field name="max_days_per_year">
+                    <attribute name="invisible">leave_category not in ['vacation','birthday']</attribute>
+                </field>
+                <field name="birthday_month_only">
+                    <attribute name="invisible">leave_category != 'birthday'</attribute>
+                </field>
+            </xpath>
+        </field>
+    </record>
+</odoo>

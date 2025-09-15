@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_employee_form_extended" model="ir.ui.view">
+        <field name="name">hr.employee.form.extended</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <!-- Opción 1: Usar el xpath correcto para Odoo 18 -->
+            <xpath expr="//page[@name='personal_information']" position="after">
+                <page string="Tiempo Libre">
+                    <group>
+                        <field name="time_off_responsible_id"/>
+                        <field name="vacation_days_available"/>
+                        <field name="vacation_days_used"/>
+                        <field name="birthday_leave_used"/>
+                    </group>
+                </page>
+            </xpath>
+            
+            <!-- Opción 2: Alternativa más segura usando sheet -->
+            <!-- <xpath expr="//sheet" position="inside">
+                <group string="Tiempo Libre">
+                    <field name="time_off_responsible_id"/>
+                    <field name="vacation_days_available"/>
+                    <field name="vacation_days_used"/>
+                    <field name="birthday_leave_used"/>
+                </group>
+            </xpath> -->
+        </field>
+    </record>
+</odoo>

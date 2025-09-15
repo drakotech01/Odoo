@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_holidays_dashboard" model="ir.ui.view">
+        <field name="name">hr.holidays.dashboard</field>
+        <field name="model">hr.leave</field>
+        <field name="arch" type="xml">
+            <dashboard>
+                <view type="grid" string="Resumen de Tiempo Libre">
+                    <field name="employee_id"/>
+                    <field name="holiday_status_id"/>
+                    <field name="request_date_from"/>
+                    <field name="request_date_to"/>
+                    <field name="state"/>
+                    <group string="Vacaciones">
+                        <div class="row">
+                            <div class="col">
+                                <field name="employee_id.vacation_days_available" string="Días Disponibles"/>
+                            </div>
+                            <div class="col">
+                                <field name="employee_id.vacation_days_used" string="Días Usados"/>
+                            </div>
+                        </div>
+                    </group>
+                    <group string="Cumpleaños" attrs="{'invisible': [('employee_id.birthday_leave_used', '=', True)]}">
+                        <div>Día de cumpleaños disponible este año</div>
+                    </group>
+                </view>
+            </dashboard>
+        </field>
+    </record>
+</odoo>

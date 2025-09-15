@@ -1,0 +1,19 @@
+<templates xml:space="preserve">
+
+    <t t-name="systray_clock.Clock" owl="1">
+        <div 
+            class="o_systray_clock d-flex align-items-center ms-2" 
+            t-ref="clock"
+            role="status"
+            aria-live="polite"
+            t-att-aria-label="'Hora actual: ' + state.time"
+            t-att-title="'Hora del servidor: ' + state.time"
+            t-on-click="onClick"
+            t-on-contextmenu="onRightClick"
+        >
+            <i class="fa fa-clock-o me-1" aria-hidden="true"/>
+            <time class="o_clock_display" t-esc="state.time"/>
+        </div>
+    </t>
+
+</templates>

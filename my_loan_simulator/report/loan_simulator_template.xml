@@ -1,0 +1,94 @@
+<odoo>
+    <data>
+        <template id="report_loan_simulator">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h1>Simulador de Crédito</h1>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 80px;"/>
+                                <p t-field="company.name"/>
+                                <p t-field="company.partner_id.name"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="page">
+                        <h2 class="text-center">Plan de Pagos</h2>
+                        <div class="row" style="margin-bottom: 20px;">
+                            <div class="col-xs-6">
+                                <strong>Monto del Crédito:</strong> <span t-field="doc.loan_amount"/>
+                            </div>
+                            <div class="col-xs-6">
+                                <strong>Tasa de Interés Anual:</strong> <span t-field="doc.interest_rate"/> %
+                            </div>
+                            <div class="col-xs-6">
+                                <strong>Cantidad de Pagos:</strong> <span t-field="doc.number_of_payments"/>
+                            </div>
+                            <div class="col-xs-6">
+                                <strong>IVA:</strong> <span t-field="doc.iva_rate"/> %
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>No. de Pago</th>
+                                            <th>Fecha de Pago</th>
+                                            <th>Saldo Inicial Deuda</th>
+                                            <th>Saldo Inicial Capital</th>
+                                            <th>Capital</th>
+                                            <th>Interés</th>
+                                            <th>IVA</th>
+                                            <th>Cuota Total</th>
+                                            <th>Saldo Final Deuda</th>
+                                            <th>Saldo Final Capital</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="doc.payment_ids" t-as="payment">
+                                            <tr>
+                                                <td><span t-field="payment.payment_number"/></td>
+                                                <td><span t-field="payment.payment_date"/></td>
+                                                <td><span t-field="payment.initial_total_debt"/></td>
+                                                <td><span t-field="payment.initial_balance"/></td>
+                                                <td><span t-field="payment.principal_amount"/></td>
+                                                <td><span t-field="payment.interest_amount"/></td>
+                                                <td><span t-field="payment.iva_amount"/></td>
+                                                <td><span t-field="payment.payment_amount"/></td>
+                                                <td><span t-field="payment.final_total_debt"/></td>
+                                                <td><span t-field="payment.final_balance"/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top: 20px;">
+                            <div class="col-xs-12 text-center">
+                                <p><strong>Resumen del Crédito</strong></p>
+                                <p><strong>Cuota Semanal Fija:</strong> <span t-field="doc.weekly_payment"/></p>
+                                <p><strong>Monto Total a Pagar:</strong> <span t-field="doc.total_debt"/></p>
+                                <p><strong>Interés Total Pagado:</strong> <span t-field="doc.total_interest_paid"/></p>
+                                <p><strong>IVA Total Pagado:</strong> <span t-field="doc.total_iva_paid"/></p>
+                            </div>
+                        </div>
+
+                        <div class="footer">
+                            <ul class="list-inline text-center">
+                                <li class="text-left" style="margin-right: 15px;">Página <span class="page"/> / <span class="topage"/></li>
+                                <li class="text-right"><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/></li>
+                            </ul>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Vista heredada del formulario de pagos -->
+    <record id="view_account_payment_form_geoloc" model="ir.ui.view">
+        <field name="name">account.payment.form.geoloc</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form" />
+        <field name="arch" type="xml">
+            <!-- Insertamos los campos de geolocalización dentro del grupo principal -->
+            <xpath expr="//header" position="inside">
+                <button class="oe_stat_button" type="action"
+                    name="%(action_get_payment_location)d"
+                    string="Genarar Pago"
+                    invisible="state != 'draft'"
+                    icon="fa-location-arrow" />
+            </xpath>
+            <xpath expr="//field[@name='memo']" position="after">
+                <div>
+                    <group string="Geolocalización" name="geo_group" col="2">
+                        <field name="latitude" readonly="1" />
+                        <field name="longitude" readonly="1" />
+
+                    </group>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

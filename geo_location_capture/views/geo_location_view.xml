@@ -1,0 +1,52 @@
+<odoo>
+    <record id="view_geo_location_form" model="ir.ui.view">
+        <field name="name">geo.location.form</field>
+        <field name="model">geo.location</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <!-- Opción 1: Usando la instancia global -->
+                    <button name="get_Location"
+                        string="📍 Obtener Ubicación (Instancia)"
+                        type="object"
+                        class="btn-primary"
+                        onclick="capturarYGuardarCoordenadas(record.id)"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="latitude" />
+                        <field name="longitude" />                        
+                        <field name="last_location_update" />
+                        <field name="address" readonly="1" />
+                    </group>
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+
+    <!-- Vista de árbol -->
+    <record id="view_geo_location_tree" model="ir.ui.view">
+        <field name="name">geo.location.tree</field>
+        <field name="model">geo.location</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" />               
+                <field name="last_location_update" />
+            </list>
+        </field>
+    </record>
+
+    <!-- Acciones -->
+    <record id="action_geo_location_form" model="ir.actions.act_window">
+        <field name="name">Ubicaciones Geográficas</field>
+        <field name="res_model">geo.location</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menú -->
+    <menuitem id="menu_geo_location_root" name="Geolocalización" sequence="10" />
+    <menuitem id="menu_geo_location_records" name="Ubicaciones" parent="menu_geo_location_root"
+        action="action_geo_location_form" />
+</odoo>
