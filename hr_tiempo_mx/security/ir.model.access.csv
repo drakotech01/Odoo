@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_leave_type_extended,hr.leave.type.extended,model_hr_leave_type,base.group_user,1,1,1,0
+access_hr_leave_type_extended_manager,hr.leave.type.extended.manager,model_hr_leave_type,hr.group_hr_manager,1,1,1,1
+access_hr_leave_extended,hr.leave.extended,model_hr_leave,base.group_user,1,1,1,0
+access_hr_leave_extended_manager,hr.leave.extended.manager,model_hr_leave,hr.group_hr_manager,1,1,1,1
+access_hr_employee_extended,hr.employee.extended,model_hr_employee,base.group_user,1,0,0,0
+access_hr_employee_extended_manager,hr.employee.extended.manager,model_hr_employee,hr.group_hr_manager,1,1,1,0
+access_holidays_migration_wizard,holidays.migration.wizard,model_hr_holidays_migration_wizard,hr.group_hr_manager,1,1,1,1

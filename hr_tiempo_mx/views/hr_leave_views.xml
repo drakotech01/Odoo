@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extender vista formulario de solicitud de permisos -->
+    <record id="view_hr_leave_form_extended" model="ir.ui.view">
+        <field name="name">hr.leave.form.extended</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Ejemplo de modificación de campo con visibilidad condicional -->
+            <field name="state" position="after">
+                <field name="rejection_reason">
+                    <attribute name="readonly">state != 'refuse'</attribute>
+                </field>
+            </field>
+            <!-- Ejemplo de modificación de campo con atributos -->
+            <xpath expr="//field[@name='holiday_status_id']" position="after">
+                <field name="original_available_days">
+                    <attribute name="invisible">holiday_status_id.leave_category != 'vacation'</attribute>
+                </field>
+            </xpath>
+        </field>
+    </record>
+    
+    <!-- Vista de rechazo con motivo requerido -->
+    <record id="view_holiday_leave_rejection_wizard" model="ir.ui.view">
+        <field name="name">holiday.leave.rejection.wizard</field>
+        <field name="model">hr.leave</field>
+        <field name="arch" type="xml">
+            <form string="Rechazar Solicitud">
+                <group>
+                    <field name="rejection_reason" required="1"/>
+                </group>
+                <footer>
+                    <button name="action_refuse" string="Confirmar Rechazo" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tipos de permiso predefinidos -->
+    <record id="hr_leave_type_vacation" model="hr.leave.type">
+        <field name="name">Vacaciones</field>
+        <field name="leave_category">vacation</field>
+        <field name="requires_allocation">yes</field>
+        <field name="validation_type">both</field>
+    </record>
+    
+    <record id="hr_leave_type_birthday" model="hr.leave.type">
+        <field name="name">Día de Cumpleaños</field>
+        <field name="leave_category">birthday</field>
+        <field name="requires_birthday_validation">True</field>
+        <field name="birthday_month_only">True</field>
+        <field name="requires_allocation">no</field>
+        <field name="validation_type">both</field>
+        <field name="max_days_per_year">1</field>
+    </record>
+    
+    <record id="hr_leave_type_paid" model="hr.leave.type">
+        <field name="name">Permiso con Goce de Sueldo</field>
+        <field name="leave_category">paid</field>
+        <field name="requires_allocation">no</field>
+        <field name="validation_type">both</field>
+    </record>
+    
+    <record id="hr_leave_type_unpaid" model="hr.leave.type">
+        <field name="name">Permiso sin Goce de Sueldo</field>
+        <field name="leave_category">unpaid</field>
+        <field name="requires_allocation">no</field>
+        <field name="validation_type">both</field>
+    </record>
+    
+    <record id="hr_leave_type_paternity" model="hr.leave.type">
+        <field name="name">Permiso de Paternidad</field>
+        <field name="leave_category">paternity</field>
+        <field name="is_legal_leave">True</field>
+        <field name="requires_allocation">yes</field>
+        <field name="validation_type">both</field>
+    </record>
+    
+    <record id="hr_leave_type_maternity" model="hr.leave.type">
+        <field name="name">Permiso de Maternidad</field>
+        <field name="leave_category">maternity</field>
+        <field name="is_legal_leave">True</field>
+        <field name="requires_allocation">yes</field>
+        <field name="validation_type">both</field>
+    </record>
+    
+    <!-- Días festivos (configuración básica, se puede ampliar) -->
+    <record id="hr_leave_type_holiday" model="hr.leave.type">
+        <field name="name">Día Festivo</field>
+        <field name="leave_category">holiday</field>
+        <field name="requires_allocation">no</field>
+        <field name="validation_type">no_validation</field>
+    </record>
+</odoo>

@@ -1,0 +1,40 @@
+.o_systray_clock {
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    user-select: none;
+    
+    &:hover {
+        color: #f5f3d3;
+        transform: scale(1.1) ;
+            -webkit-transform: scale(1.1) ;
+            -moz-transform: scale(1.1) ;
+    }
+    
+    .fa-clock-o {
+        font-size: 0.875rem;        
+    }
+    
+    .o_clock_display {
+        font-variant-numeric: tabular-nums;
+        min-width: 3.5rem;
+        text-align: center;
+    }
+    
+    @media (max-width: 768px) {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.75rem;
+        
+        .o_clock_display {
+            min-width: 3rem;
+        }
+        
+        .fa-clock-o {
+            font-size: 15px;
+        }
+    }
+}

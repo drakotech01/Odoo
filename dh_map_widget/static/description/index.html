@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Field Map Widget — Digital Harbor</title>
+  <style>
+    :root { --brand:#5bd3cf; --ink:#111827; --muted:#6b7280; }
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;line-height:1.6;color:var(--ink);margin:0;padding:0 0 40px;}
+    .wrap{max-width:980px;margin:0 auto;padding:24px;}
+    .hero{position:relative;border-radius:16px;overflow:hidden;margin-bottom:24px;background:#0b2340;}
+    .hero img{width:100%;display:block;}
+    h1{margin:.6em 0 .2em;font-size:32px}
+    .subtitle{color:var(--muted);margin:0 0 16px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:16px 0 8px}
+    .card{border:1px solid #e5e7eb;border-radius:12px;padding:16px;background:#fff}
+    .k{font-weight:600}
+    code{background:#f3f4f6;border:1px solid #e5e7eb;border-radius:6px;padding:2px 6px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+    pre{background:#0f172a;color:#e5e7eb;padding:14px;border-radius:10px;overflow:auto}
+    .footer{color:var(--muted);margin-top:24px;font-size:14px}
+    .chip{display:inline-block;border:1px solid #e5e7eb;border-radius:999px;padding:4px 10px;margin:4px 6px 0 0;font-size:12px;background:#fff}
+    .center{display:flex;align-items:center;gap:12px}
+    .logo{width:56px;height:56px;border-radius:50%;border:3px solid var(--brand);}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    
+    <div class="hero">
+      <video width="100%" controls>
+        <source src="video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <h2>Overview</h2>
+    <p>This widget adds an interactive map to any form view. Users can click to set coordinates or search an address and have the latitude/longitude written to your model fields. Works out‑of‑the‑box with OpenStreetMap tiles and optionally uses Mapbox if a token is available.</p>
+
+    <h2>Usage</h2>
+    <ol>
+      <li>Add two fields to your model: one for latitude (Float) and one for longitude (Float).</li>
+      <li>In your form view, use the widget on a <code>char</code> field and point the widget to your lat/long fields via options.</li>
+    </ol>
+
+    <pre>
+      &lt;field name="x_latitude"/&gt;
+      &lt;field name="x_longitude"/&gt;
+      &lt;field name="x_map_holder" widget="map"
+        options="{'latitude_field': 'x_latitude', # required
+          'longitude_field': 'x_longitude', # required
+          'enable_search': true, # optional 
+          'readonly': false # optional
+        }"/&gt;
+    </pre>
+
+    <p><span class="k">Notes</span>:
+      Search can be disabled by setting <code>enable_search</code> to <code>false</code>. Setting <code>readonly</code> to <code>true</code> makes the map read‑only.
+    </p>
+
+
+    <h2>Support</h2>
+    <p>
+      Digital Harbor — 
+      <a href="https://digitalharbor.com.sa" target="_blank" rel="noopener">digitalharbor.com.sa</a><br>
+      Email: support@digitalharbor.com.sa
+    </p>
+
+    <div class="footer">
+      Version 18.0.1.0.0 — License: LGPL‑3<br>
+      © Digital Harbor. All rights reserved.
+    </div>
+  </div>
+</body>
+</html>

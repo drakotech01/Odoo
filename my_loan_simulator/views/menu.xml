@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- MENÚS -->
+
+        <menuitem id="menu_credit_root" name="Crédito" sequence="10" />
+        <menuitem id="menu_credit_simulator" name="Simulador de Crédito" parent="menu_credit_root"
+            action="loan_simulator_action" sequence="10" />
+        <menuitem id="menu_credit_clients" name="Clientes" parent="menu_credit_root"
+            action="loan_client_action" sequence="20" />
+        
+    </data>
+</odoo>

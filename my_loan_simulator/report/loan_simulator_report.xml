@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+        <!-- ACCIÓN PARA EL REPORTE EN PDF -->
+        <record id="action_report_loan_simulator" model="ir.actions.report">
+            <field name="name">Plan de Pagos</field>
+            <field name="model">loan.simulator</field>
+            <field name="report_name">my_loan_simulator.loan_simulator_template</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="binding_model_id" ref="model_loan_simulator"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

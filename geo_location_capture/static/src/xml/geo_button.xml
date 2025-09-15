@@ -1,0 +1,7 @@
+<templates xml:space="preserve">
+    <t t-name="mi_modulo.GeoButton">
+        <button type="button" class="btn btn-primary" t-on-click="getLocation">
+            Obtener ubicación
+        </button>
+    </t>
+</templates>

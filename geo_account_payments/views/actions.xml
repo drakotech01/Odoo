@@ -1,0 +1,6 @@
+<odoo>
+    <record id="action_get_payment_location" model="ir.actions.client">
+        <field name="name">Get Current Location Fetcher</field>
+        <field name="tag">geo_location_payment.current_location_action</field>
+    </record>
+</odoo>
